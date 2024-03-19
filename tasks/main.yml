@@ -8,3 +8,7 @@
       when: ansible_system == "Linux"
 
   when: want_teamviewer
+
+- name: set has_teamviewer
+  set_fact:
+    has_teamviewer: "{{ want_teamviewer }}"
