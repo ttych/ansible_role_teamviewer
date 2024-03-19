@@ -1,7 +1,7 @@
 ---
 
 want_teamviewer: yes
-want_teamviewer_started: yes
+want_teamviewer_service: yes
 
 
 teamviewer_arch:
