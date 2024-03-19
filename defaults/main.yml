@@ -1,2 +1,19 @@
 ---
-# defaults file for ansible_role_teamviewer
+
+want_teamviewer: yes
+want_teamviewer_started: yes
+
+
+teamviewer_arch:
+  'x86_64': 'amd64'
+  'i386': 'i386'
+
+teamviewer_package:
+  Ubuntu: "teamviewer_{{ teamviewer_arch[ansible_architecture] }}.deb"
+  RedHat: "teamviewer.{{ teamviewer_arch[ansible_architecture] }}.rpm"
+  Linux: "teamviewer_{{ teamviewer_arch[ansible_architecture] }}.tar.xz"
+
+teamviewer_base_url: "https://download.teamviewer.com/download/"
+
+teamviewer_bin: teamviewer
+teamviewer_service: teamviewerd

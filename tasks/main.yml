@@ -1,2 +1,10 @@
 ---
-# tasks file for ansible_role_teamviewer
+
+- include_tasks: context.yml
+
+- block:
+
+    - include_tasks: setup_linux.yml
+      when: ansible_system == "Linux"
+
+  when: want_teamviewer
