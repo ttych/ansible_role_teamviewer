@@ -8,12 +8,17 @@ teamviewer_arch:
   'x86_64': 'amd64'
   'i386': 'i386'
 
-teamviewer_package:
-  Ubuntu: "teamviewer_{{ teamviewer_arch[ansible_architecture] }}.deb"
-  RedHat: "teamviewer.{{ teamviewer_arch[ansible_architecture] }}.rpm"
-  Linux: "teamviewer_{{ teamviewer_arch[ansible_architecture] }}.tar.xz"
+# VERSION-TO-UPGRADE
+teamviewer_version: 15.51.5
+teamviewer_version_major: "{{ teamviewer_version.split('.')[0] }}"
 
-teamviewer_base_url: "https://download.teamviewer.com/download/"
+teamviewer_package_name: teamviewer
+teamviewer_package:
+  Ubuntu: "{{ teamviewer_package_name }}_{{ teamviewer_version }}_{{ teamviewer_arch[ansible_architecture] }}.deb"
+  RedHat: "{{ teamviewer_package_name }}_{{ teamviewer_version }}.{{ teamviewer_arch[ansible_architecture] }}.rpm"
+  Linux: "{{ teamviewer_package_name }}_{{ teamviewer_version }}_{{ teamviewer_arch[ansible_architecture] }}.tar.xz"
+
+teamviewer_base_url: "https://dl.teamviewer.com/download/linux/version_{{ teamviewer_version_major }}x/"
 
 teamviewer_bin: teamviewer
 teamviewer_service: teamviewerd

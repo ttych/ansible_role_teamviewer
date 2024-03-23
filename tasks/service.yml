@@ -1,0 +1,15 @@
+---
+
+- name: enable / start
+  systemd:
+    name: "{{ teamviewer_service }}.service"
+    enabled: true
+    state: started
+  when: want_teamviewer_service
+
+- name: disable / stop
+  systemd:
+    name: "{{ teamviewer_service }}.service"
+    enabled: false
+    state: stopped
+  when: not want_teamviewer_service

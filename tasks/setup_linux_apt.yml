@@ -1,0 +1,37 @@
+---
+
+
+- name: check installed
+  shell:
+    cmd: "dpkg -s {{ teamviewer_package_name }} | grep '^Version:' | awk '{print $2}'"
+  changed_when: no
+  failed_when: no
+  register: t_teamviewer_installed
+
+
+- block:
+    - name: select package
+      set_fact:
+        teamviewer_package: "{{ teamviewer_package[ansible_distribution] | default(teamviewer_package[ansible_system]) }}"
+
+    - name: set package url
+      set_fact:
+        teamviewer_package_url: "{{ teamviewer_base_url }}{{ teamviewer_package }}"
+
+    - name: download package
+      get_url:
+        url: "{{ teamviewer_package_url }}"
+        dest: "/tmp/{{ teamviewer_package }}"
+        mode: "0644"
+
+    - name: install package
+      command:
+        cmd: "dpkg -i /tmp/{{ teamviewer_package }}"
+
+    - name: clean downloaded
+      file:
+        path: "/tmp/{{ teamviewer_package }}"
+        state: absent
+
+
+  when: t_teamviewer_installed.rc != 0 or t_teamviewer_installed.stdout != teamviewer_version

@@ -3,9 +3,15 @@
 - include_tasks: context.yml
 
 - block:
+    - include_tasks: setup_linux_apt.yml
+      when: ansible_pkg_mgr == 'apt'
 
     - include_tasks: setup_linux.yml
-      when: ansible_system == "Linux"
+      when:
+        - ansible_system == "Linux"
+        - ansible_pkg_mgr != 'apt'
+
+    - include_tasks: service.yml
 
   when: want_teamviewer
 
