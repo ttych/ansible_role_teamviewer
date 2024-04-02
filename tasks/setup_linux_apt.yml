@@ -8,6 +8,13 @@
   failed_when: no
   register: t_teamviewer_installed
 
+- name: extract version
+  set_fact:
+    t_teamviewer_version_major: "{{ t_teamviewer_installed.stdout.split('.')[0] | int }}"
+    t_teamviewer_version_minor: "{{ t_teamviewer_installed.stdout.split('.')[1] | int }}"
+    t_teamviewer_version_patch: "{{ t_teamviewer_installed.stdout.split('.')[2] | int }}"
+  when: t_teamviewer_installed.rc == 0 and t_teamviewer_installed.stdout
+
 
 - block:
     - name: select package
@@ -34,4 +41,4 @@
         state: absent
 
 
-  when: t_teamviewer_installed.rc != 0 or t_teamviewer_installed.stdout != teamviewer_version
+  when: t_teamviewer_installed.rc != 0 or not t_teamviewer_installed.stdout or teamviewer_version_major > t_teamviewer_version_major or teamviewer_version_minor > t_teamviewer_version_minor or teamviewer_version_patch > t_teamviewer_version_patch

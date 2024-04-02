@@ -9,8 +9,10 @@ teamviewer_arch:
   'i386': 'i386'
 
 # VERSION-TO-UPGRADE
-teamviewer_version: 15.51.5
-teamviewer_version_major: "{{ teamviewer_version.split('.')[0] }}"
+teamviewer_version: 15.52.3
+teamviewer_version_major: "{{ teamviewer_version.split('.')[0] | int }}"
+teamviewer_version_minor: "{{ teamviewer_version.split('.')[1] | int }}"
+teamviewer_version_patch: "{{ teamviewer_version.split('.')[2] | int }}"
 
 teamviewer_package_name: teamviewer
 teamviewer_package:
