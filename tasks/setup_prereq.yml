@@ -1,0 +1,6 @@
+---
+
+- name: install prereq
+  package:
+    name: "{{ teamviewer_prereq_packages[ansible_distribution] | d(None) }}"
+    state: present

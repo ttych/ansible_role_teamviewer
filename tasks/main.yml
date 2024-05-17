@@ -3,6 +3,8 @@
 - include_tasks: context.yml
 
 - block:
+    - include_tasks: setup_prereq.yml
+
     - include_tasks: setup_linux_apt.yml
       when: ansible_pkg_mgr == 'apt'
 

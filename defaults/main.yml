@@ -14,6 +14,11 @@ teamviewer_version_major: "{{ teamviewer_version.split('.')[0] | int }}"
 teamviewer_version_minor: "{{ teamviewer_version.split('.')[1] | int }}"
 teamviewer_version_patch: "{{ teamviewer_version.split('.')[2] | int }}"
 
+teamviewer_prereq_packages:
+  Ubuntu:
+    - libminizip1t64
+    - policykit-1
+
 teamviewer_package_name: teamviewer
 teamviewer_package:
   Ubuntu: "{{ teamviewer_package_name }}_{{ teamviewer_version }}_{{ teamviewer_arch[ansible_architecture] }}.deb"
